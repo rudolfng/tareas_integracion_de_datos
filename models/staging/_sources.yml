@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: airbyte_raw
+    database: practicas
+    schema: main
+    tables:
+      - name: forecast
+      - name: asteroides

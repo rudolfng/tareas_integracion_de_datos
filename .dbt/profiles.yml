@@ -1,0 +1,9 @@
+practicas:
+  outputs:
+    dev:
+      type: duckdb
+      path: "md:practicas"
+      extensions:
+        - motherduck
+      motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+  target: dev
