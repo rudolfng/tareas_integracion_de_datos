@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: stg_forecast
+    description: "Datos limpios de OpenWeather extraídos vía Airbyte."
+    columns:
+      - name: dt_unix
+        description: "Timestamp Unix original."
+        tests:
+          - not_null # Test Genérico 1
+
+      - name: temp_celsius
+        description: "Temperatura actual en Celsius."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between: # Test dbt-expectations 1
+              min_value: -60
+              max_value: 60
+
+      - name: humidity
+        description: "Porcentaje de humedad."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between: # Test dbt-expectations 2
+              min_value: 0
+              max_value: 100
+
+      - name: ubicacion
+        description: "Ciudad de la consulta."
+        tests:
+          - not_null # Test Genérico 2
+
+  - name: stg_asteroides
+    description: "Datos de asteroides cercanos a la Tierra (NASA NeoWs)."
+    columns:
+      - name: asteroide_id
+        description: "ID único del asteroide."
+        tests:
+          - unique # Test Genérico 3
+          - not_null # Test Genérico 4
+
+      - name: es_peligroso
+        description: "Flag que indica si es potencialmente peligroso."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set: # Test dbt-expectations 3
+              value_set: [true, false]

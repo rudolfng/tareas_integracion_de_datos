@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: mart_clima_obt
+    description: "Tabla maestra de clima agregada por día y ciudad."
+    columns:
+      - name: fecha
+        description: "Fecha calendario."
+        tests:
+          - not_null # Test Genérico 5
